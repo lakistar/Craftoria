@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Оновлюємо data-product-id для кнопки кошика
         if (addToCartBtn) {
-            addToCartBtn.dataset.productId = product.id;
+            addToCartBtn.dataset.productId = product.id; // Це важливо для addToCart у main.js
         }
 
         // Оновлюємо назву поточного кольору
@@ -62,6 +62,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const variants = allProducts.filter(p => p.name.includes(cleanBaseName));
 
         if (variants.length > 1) { // Показуємо селектор кольору, тільки якщо є більше одного варіанту
+            // Переконайтесь, що .product-color-selector відображається
+            const colorSelector = document.querySelector('.product-color-selector');
+            if (colorSelector) {
+                colorSelector.style.display = 'block';
+            }
+
             variants.forEach(variant => {
                 const swatch = document.createElement('div');
                 swatch.classList.add('color-swatch');
@@ -123,20 +129,20 @@ document.addEventListener('DOMContentLoaded', () => {
         renderColorSwatches(currentProduct.name, currentProduct.id);
     }
 
-    // Обробник для кнопки "Додати до кошика"
+    // *** ЗМІНЕНО ***: Використання глобальної функції addToCart з main.js
     if (addToCartBtn) {
         addToCartBtn.addEventListener('click', () => {
             const quantity = parseInt(quantityInput.value) || 1;
             if (isNaN(quantity) || quantity <= 0) {
                 quantityInput.value = 1; // Забезпечуємо мінімум 1
             }
-
-            const cartItems = getStoredItems('cartItems');
-            // Додаємо до кошика поточний вибраний товар (currentProduct.id)
-            cartItems[currentProduct.id] = (cartItems[currentProduct.id] || 0) + quantity;
-            saveItemsToStorage('cartItems', cartItems);
-            alert(`${currentProduct.name} (${quantity} шт.) додано до кошика!`);
-            updateHeaderCounts();
+            // Викликаємо addToCart з main.js
+            if (typeof addToCart === 'function') { // Перевірка, чи функція доступна
+                addToCart(currentProduct.id, quantity);
+                alert(`${currentProduct.name} (${quantity} шт.) додано до кошика!`);
+            } else {
+                console.error("Функція addToCart не визначена. Перевірте порядок підключення скриптів або наявність її в main.js.");
+            }
         });
     }
 });
