@@ -1,8 +1,12 @@
 // j/category-page.js
 
-// Переконайтеся, що 'allProducts' з 'products-data.js'
-// та 'getStoredItems', 'saveItemsToStorage', 'addToCart', 'updateHeaderCounts' з 'main.js'
+// Переконайтеся, що 'allProducts' (з j/products-data.js)
+// та 'getStoredItems', 'saveItemsToStorage', 'addToCart', 'updateHeaderCounts' (з j/main.js)
 // визначені та підключені ПЕРЕД цим скриптом в HTML.
+// Правильний порядок підключення в HTML:
+// <script src="j/products-data.js"></script>
+// <script src="j/main.js"></script>
+// <script src="j/category-page.js"></script>
 
 document.addEventListener('DOMContentLoaded', () => {
     const categoryTitleElement = document.getElementById('category-title');
@@ -15,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         var results = regex.exec(location.search);
 
         // ВИПРАВЛЕННЯ ПОМИЛКИ: "Cannot read properties of undefined (reading '1')"
-        // Перевіряємо, чи 'results' існує і чи має хоча б дві групи захоплення (перша - весь збіг, друга - сам параметр)
+        // Перевіряємо, чи 'results' існує і чи має хоча б одну групу захоплення (індекс 1)
         if (results && results[1]) {
             return decodeURIComponent(results[1].replace(/\+/g, ' '));
         } else {
@@ -47,26 +51,29 @@ document.addEventListener('DOMContentLoaded', () => {
         initialCategoryRadio.checked = true;
     }
 
-    // Змінна для зберігання продуктів, що відображаються
     let displayedProducts = [];
 
-    // ОБРОБНИК ДЕЛЕГУВАННЯ ПОДІЙ ДЛЯ КНОПОК "ДОДАТИ ДО КОШИКА"
-    // Цей обробник додається ОДИН РАЗ при завантаженні сторінки
+    // --- ПОЧАТОК КЛЮЧОВИХ ЗМІН ДЛЯ ОБРОБНИКА ПОДІЙ ---
+    // Обробник делегування подій для кнопок "Додати до кошика"
+    // Цей обробник додається ОДИН РАЗ при завантаженні сторінки (в DOMContentLoaded)
     // і ловить кліки на всі кнопки '.add-to-cart-btn' всередині 'productGrid',
-    // навіть ті, що були додані динамічно.
+    // навіть ті, що додаються динамічно через renderProducts.
     productGrid.addEventListener('click', (event) => {
-        const targetButton = event.target.closest('.add-to-cart-btn'); // Знаходимо найближчу кнопку
+        const targetButton = event.target.closest('.add-to-cart-btn'); // Знаходимо найближчу кнопку з класом
         if (targetButton) {
-            event.preventDefault(); // Запобігаємо стандартній поведінці кнопки (наприклад, якщо вона в <a>)
+            event.preventDefault(); // Запобігаємо стандартній поведінці (наприклад, переходу за посиланням)
             const productId = parseInt(targetButton.dataset.productId);
-            addToCart(productId); // Правильна назва функції
+
+            // ВИПРАВЛЕННЯ: Виклик функції addToCart (з маленької 'a')
+            addToCart(productId); // Ця функція оновлює localStorage та викликає updateHeaderCounts()
 
             // Оновлюємо текст кнопки на "В кошику"
             targetButton.textContent = 'В кошику';
-            // Також можна вимкнути кнопку після додавання, щоб уникнути подвійних кліків
+            // За бажанням, можна вимкнути кнопку після додавання
             // targetButton.disabled = true;
         }
     });
+    // --- КІНЕЦЬ КЛЮЧОВИХ ЗМІН ---
 
 
     // Функція рендерингу товарів у сітці
@@ -103,10 +110,27 @@ document.addEventListener('DOMContentLoaded', () => {
             productGrid.appendChild(productCard);
         });
 
-        // ВАЖЛИВО: Старий forEach, який додавав обробники до кожної кнопки,
+        // ВАЖЛИВО: Цей блок (forEach, який додавав обробники до кожної кнопки)
         // ТЕПЕР ПОВИНЕН БУТИ ВИДАЛЕНИЙ АБО ЗАКОМЕНТОВАНИЙ.
-        // Він був причиною подвійного додавання, якщо знаходився тут.
-        // productGrid.querySelectorAll('.add-to-cart-btn').forEach(button => { /* ... */ });
+        // Його присутність тут призводила до ПОВТОРНОГО додавання обробників подій,
+        // що спричиняло подвійне додавання товарів при кожному кліку.
+        /*
+        productGrid.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                const productId = parseInt(event.target.dataset.productId);
+                const productToAdd = allProducts.find(p => p.id === productId);
+
+                if (productToAdd) {
+                    const cartItems = getStoredItems('cartItems');
+                    cartItems[productId] = (cartItems[productId] || 0) + 1;
+                    saveItemsToStorage('cartItems', cartItems);
+                    event.target.textContent = 'В кошику';
+                    updateHeaderCounts();
+                }
+            });
+        });
+        */
     }
 
     // Функція застосування фільтрів та сортування
@@ -117,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Оновлюємо заголовок сторінки відповідно до вибраної категорії
         categoryTitleElement.textContent = `Каталог: ${categoryMap[currentCategoryFilter] || 'Всі товари'}`;
+
 
         let filtered = allProducts.filter(product => {
             // Фільтрація за категорією
@@ -151,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return false;
             }
 
-            return true; // Якщо товар пройшов всі фільтри
+            return true;
         });
 
         // Сортування відфільтрованих товарів
@@ -164,13 +189,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 filtered.sort((a, b) => b.price - a.price);
                 break;
             case 'newest':
-                // Якщо у вас є timestamp або схожий атрибут, краще сортувати за ним.
-                // Наразі сортуємо за ID, припускаючи, що більший ID = новіший.
                 filtered.sort((a, b) => b.id - a.id);
                 break;
             case 'popular':
             default:
-                // За замовчуванням або "Популярні" можна сортувати за ID або додати окремий атрибут популярності
                 filtered.sort((a, b) => a.id - b.id);
                 break;
         }
