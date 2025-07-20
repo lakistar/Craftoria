@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Craftoria | Деталі товару</title>
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="logo.png" alt="Лого Craftoria " class="logo-icon">
+                Craftoria
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Головна</a></li>
+                    <li><a href="category-page.html">Каталог</a></li>
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Контакти</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="action-icon" id="cart-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Кошик">
+                    <span class="item-count" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="product-page-main">
+        <div class="container">
+            <a href="category-page.html" class="back-to-catalog-btn button secondary-button reveal fade-in">Назад до каталогу</a>
+
+            <div class="product-details">
+                <div class="product-image-wrapper reveal slide-left">
+                    <div id="product-image" class="full-product-image"></div>
+                </div>
+                <div class="product-info">
+                    <h1 id="product-name" class="reveal slide-up reveal-delay-1">Назва товару</h1>
+                    <p class="product-description reveal slide-up reveal-delay-2" id="product-description">Короткий опис товару, його характеристики та особливості.</p>
+                    <p class="product-price reveal slide-up reveal-delay-3" id="product-price">0.00 ₴</p>
+
+                    <div class="product-color-selector reveal slide-up reveal-delay-4">
+                        <p>Виберіть колір: <span id="current-color-name"></span></p>
+                        <div class="color-swatches" id="color-swatches-container">
+                            </div>
+                    </div>
+
+                    <div class="product-actions reveal slide-up reveal-delay-5">
+                        <input type="number" id="quantity-input" value="1" min="1" class="quantity-input">
+                        <button class="button primary-button" id="add-to-cart-btn">Додати до кошика</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 HandyCraft Shop. Усі права захищені.</p>
+        </div>
+    </footer>
+
+    <script src="products-data.js"></script>
+    <script src="header.js"></script>
+    <script src="product.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

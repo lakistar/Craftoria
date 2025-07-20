@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Craftoria | HandyCraft Shop</title>
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <style>
+        /* Стилі для покращеного відображення порожнього кошика */
+        .empty-checkout-message-container {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #f9f9фf9; /* Світлий фон для контрасту */
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px; /* Забезпечуємо мінімальну висоту */
+        }
+
+        .empty-checkout-message-container p {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .empty-checkout-message-container .button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 8px;
+            text-decoration: none; /* Забираємо підкреслення для посилання-кнопки */
+        }
+
+        /* Стилі для тимчасового елемента відображення order_summary */
+        #debug-order-summary {
+            background-color: #e0ffe0;
+            border: 1px solid #a0d0a0;
+            padding: 15px;
+            margin-top: 20px;
+            white-space: pre-wrap; /* Зберігає переноси рядків */
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #333;
+            display: none; /* Приховано за замовчуванням, буде показано для налагодження */
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="logo.png" alt="Лого HandyCraft Shop" class="logo-icon">
+                Craftoria 
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Головна</a></li>
+                    <li><a href="category-page.html">Каталог</a></li>
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Контакти</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="action-icon" id="cart-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Кошик">
+                    <span class="item-count" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="checkout-page-main">
+        <div class="container">
+            <h1>Оформлення замовлення</h1>
+
+            <div class="checkout-content">
+                <div class="checkout-form-section">
+                    <h2>Ваші дані</h2>
+                    <form id="checkout-form">
+                        <div class="form-group">
+                            <label for="full-name">ПІБ:</label>
+                            <input type="text" id="full-name" name="full-name" required placeholder="Іванов Іван Іванович">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Телефон:</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="+380 XX XXX XX XX">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required placeholder="example@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Адреса доставки:</label>
+                            <textarea id="address" name="address" rows="3" required placeholder="Місто, вулиця, будинок, квартира"></textarea>
+                        </div>
+
+                        <h2>Спосіб оплати</h2>
+                        <div class="form-group payment-method">
+                            <input type="radio" id="payment-cash" name="payment-method" value="Готівкою при отриманні" checked>
+                            <label for="payment-cash">Готівкою при отриманні</label>
+                        </div>
+                        <div class="form-group payment-method">
+                            <input type="radio" id="payment-card" name="payment-method" value="Оплата карткою онлайн">
+                            <label for="payment-card">Оплата карткою онлайн</label>
+                        </div>
+                        <div class="form-group payment-method">
+                            <input type="radio" id="payment-bank-transfer" name="payment-method" value="Безготівковий розрахунок">
+                            <label for="payment-bank-transfer">Безготівковий розрахунок</label>
+                        </div>
+
+                        <button type="submit" class="button primary-button place-order-btn">Підтвердити замовлення</button>
+                    </form>
+                </div>
+
+                <div class="order-summary-section">
+                    <h2>Ваше замовлення</h2>
+                    <div id="checkout-cart-items" class="checkout-cart-items">
+                        <!-- Товари з кошика будуть завантажені тут JS -->
+                    </div>
+                    <div class="checkout-total">
+                        <p>Загальна сума: <span id="checkout-total-price">0.00 ₴</span></p>
+                    </div>
+                    <!-- Тимчасовий елемент для відображення order_summary -->
+                    <div id="debug-order-summary"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 HandyCraft Shop. Усі права захищені.</p>
+        </div>
+    </footer>
+
+    <script src="products-data.js"></script>
+    <script src="header.js"></script>
+    <script src="main.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const checkoutForm = document.getElementById('checkout-form');
+        const checkoutCartItemsContainer = document.getElementById('checkout-cart-items');
+        const checkoutTotalPriceElement = document.getElementById('checkout-total-price');
+        const debugOrderSummaryElement = document.getElementById('debug-order-summary'); // Новий елемент для налагодження
+
+        function getStoredItems(key) {
+            try {
+                const item = localStorage.getItem(key);
+                return item ? JSON.parse(item) : {};
+            } catch (error) {
+                console.error(`Error reading from localStorage key "${key}":`, error);
+                return {};
+            }
+        }
+
+        function saveItemsToStorage(key, items) {
+            try {
+                localStorage.setItem(key, JSON.stringify(items));
+            } catch (error) {
+                console.error(`Error writing to localStorage key "${key}":`, error);
+            }
+        }
+
+        const updateHeaderCounts = typeof window.updateHeaderCounts === 'function' ? window.updateHeaderCounts : () => {
+            const cartCountSpan = document.getElementById('cart-count');
+            const cartItems = getStoredItems('cartItems');
+            const totalCartItems = Object.values(cartItems).reduce((sum, quantity) => sum + quantity, 0);
+            if (cartCountSpan) {
+                cartCountSpan.textContent = totalCartItems;
+                if (totalCartItems === 0) {
+                    cartCountSpan.classList.add('hidden');
+                } else {
+                    cartCountSpan.classList.remove('hidden');
+                }
+            }
+        };
+
+        function renderCheckoutSummary() {
+            const cartItems = getStoredItems('cartItems');
+            checkoutCartItemsContainer.innerHTML = '';
+            let totalCartPrice = 0;
+
+            const hasItems = Object.keys(cartItems).some(productId => cartItems[productId] > 0);
+
+            if (!hasItems) {
+                checkoutCartItemsContainer.innerHTML = `
+                    <div class="empty-checkout-message-container">
+                        <p>Ваш кошик порожній.</p>
+                        <p>Додайте товари, щоб оформити замовлення.</p>
+                        <a href="category-page.html" class="button primary-button">Перейти до каталогу</a>
+                    </div>
+                `;
+                if (checkoutForm) checkoutForm.style.display = 'none';
+                checkoutTotalPriceElement.textContent = '0.00 ₴';
+                return;
+            } else {
+                if (checkoutForm) checkoutForm.style.display = 'block';
+            }
+
+            if (typeof allProducts === 'undefined' || !Array.isArray(allProducts)) {
+                console.error("allProducts не визначено або не є масивом. Перевірте j/products-data.js");
+                checkoutCartItemsContainer.innerHTML = '<p class="empty-checkout-message">Помилка завантаження даних про товари.</p>';
+                return;
+            }
+
+            for (const productId in cartItems) {
+                const quantity = cartItems[productId];
+                if (quantity > 0) {
+                    const product = allProducts.find(p => p.id === parseInt(productId));
+                    if (product) {
+                        const itemTotal = product.price * quantity;
+                        totalCartPrice += itemTotal;
+
+                        const itemElement = document.createElement('div');
+                        itemElement.classList.add('checkout-summary-item');
+                        itemElement.innerHTML = `
+                            <img src="${product.image}" alt="${product.name}" class="checkout-item-image">
+                            <div class="checkout-item-details">
+                                <p class="checkout-item-name">${product.name}</p>
+                                <p class="checkout-item-qty-price">${quantity} x ${product.price.toFixed(2)} ₴</p>
+                            </div>
+                            <p class="checkout-item-total">${itemTotal.toFixed(2)} ₴</p>
+                        `;
+                        checkoutCartItemsContainer.appendChild(itemElement);
+                    } else {
+                        console.warn(`Товар з ID ${productId} не знайдено в allProducts.`);
+                    }
+                }
+            }
+            checkoutTotalPriceElement.textContent = totalCartPrice.toFixed(2) + ' ₴';
+        }
+
+        if (checkoutForm) {
+            checkoutForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const form = e.target;
+                const formData = new FormData(form);
+
+                // --- Формування детального підсумку замовлення для відправки ---
+                const cartItems = getStoredItems('cartItems');
+                let orderSummaryText = 'Деталі замовлення:\n\n';
+                let totalOrderPrice = 0;
+
+                if (Object.keys(cartItems).length > 0) {
+                    Object.keys(cartItems).forEach(productId => {
+                        const product = allProducts.find(p => p.id === parseInt(productId));
+                        const quantity = cartItems[productId];
+                        if (product) {
+                            const itemTotal = product.price * quantity;
+                            orderSummaryText += `• ${product.name} — ${quantity} x ${product.price.toFixed(2)}₴ = ${itemTotal.toFixed(2)}₴\n`;
+                            totalOrderPrice += itemTotal;
+                        }
+                    });
+                    orderSummaryText += `\nЗагальна сума: ${totalOrderPrice.toFixed(2)} ₴`;
+                } else {
+                    orderSummaryText += 'Кошик порожній.';
+                }
+
+                formData.append('order_summary', orderSummaryText);
+                console.log("order_summary додано до FormData:", orderSummaryText);
+
+                // Відображаємо згенерований текст на сторінці для налагодження
+                if (debugOrderSummaryElement) {
+                    debugOrderSummaryElement.textContent = orderSummaryText;
+                    debugOrderSummaryElement.style.display = 'block'; // Показуємо елемент
+                }
+
+
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                }).then(response => {
+                    if (response.ok) {
+                        alert('✅ Замовлення успішно відправлено! Ми зв’яжемося з вами найближчим часом.');
+                        form.reset();
+                        saveItemsToStorage('cartItems', {});
+                        renderCheckoutSummary();
+                        updateHeaderCounts();
+                    } else {
+                        alert('❌ Виникла помилка. Будь ласка, спробуйте пізніше.');
+                    }
+                }).catch(error => {
+                    alert('❌ Помилка мережі або сервера. Спробуйте пізніше.');
+                    console.error(error);
+                });
+            });
+        }
+
+        renderCheckoutSummary();
+    });
+    </script>
+</body>
+</html>

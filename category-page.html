@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Категорія: Назва Категорії</title>
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="logo.png" alt="Лого HandyCraft Shop" class="logo-icon">
+                Craftoria
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Головна</a></li>
+                    <li><a href="category-page.html" class="active">Каталог</a></li>
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Контакти</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="action-icon" id="cart-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Кошик">
+                    <span class="item-count" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="category-page-header">
+                <h1 id="category-title">Категорія: Завантаження...</h1>
+            </section>
+
+            <section class="category-content">
+                <aside class="sidebar-filter">
+                    <h3>Фільтри</h3>
+
+                    <!-- НОВИЙ ФІЛЬТР: Категорія -->
+                    <div class="filter-group">
+                        <h4>Категорія</h4>
+                        <ul class="category-filter-list">
+                            <li><input type="radio" id="cat-all" name="category-filter" value="all" checked><label for="cat-all">Всі товари</label></li>
+                            <li><input type="radio" id="cat-beads" name="category-filter" value="beads"><label for="cat-beads">Бісер та Бісероплетіння</label></li>
+                            <li><input type="radio" id="cat-threads" name="category-filter" value="threads"><label for="cat-threads">Нитки та Пряжа</label></li>
+                            <li><input type="radio" id="cat-fabrics" name="category-filter" value="fabrics"><label for="cat-fabrics">Тканини та Основи</label></li>
+                            <li><input type="radio" id="cat-decor" name="category-filter" value="decor"><label for="cat-decor">Фурнітура та Декор</label></li>
+                            <li><input type="radio" id="cat-kits" name="category-filter" value="kits"><label for="cat-kits">Набори для Рукоділля</label></li>
+                            <li><input type="radio" id="cat-tools" name="category-filter" value="tools"><label for="cat-tools">Інструменти та Допоміжні Матеріали</label></li>
+                        </ul>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Ціна</h4>
+                        <div class="price-range">
+                            <input type="number" placeholder="Від" min="0" id="price-from">
+                            <span>-</span>
+                            <input type="number" placeholder="До" min="0" id="price-to">
+                            <button class="button primary-button apply-price-filter">Застосувати</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Колір</h4>
+                        <ul class="color-filter-list">
+                            <li><input type="checkbox" id="color-red" value="red"><label for="color-red">Червоний</label></li>
+                            <li><input type="checkbox" id="color-blue" value="blue"><label for="color-blue">Синій</label></li>
+                            <li><input type="checkbox" id="color-green" value="green"><label for="color-green">Зелений</label></li>
+                            <li><input type="checkbox" id="color-white" value="white"><label for="color-white">Білий</label></li>
+                            <li><input type="checkbox" id="color-black" value="black"><label for="color-black">Чорний</label></li>
+                            <li><input type="checkbox" id="color-yellow" value="yellow"><label for="color-yellow">Жовтий</label></li>
+                            <li><input type="checkbox" id="color-gray" value="gray"><label for="color-gray">Сірий</label></li>
+                            <li><input type="checkbox" id="color-beige" value="beige"><label for="color-beige">Бежевий</label></li>
+                            <li><input type="checkbox" id="color-brown" value="brown"><label for="color-brown">Коричневий</label></li>
+                            <li><input type="checkbox" id="color-pink" value="pink"><label for="color-pink">Рожевий</label></li>
+                            <li><input type="checkbox" id="color-cream" value="cream"><label for="color-cream">Кремовий</label></li>
+                            <li><input type="checkbox" id="color-transparent" value="transparent"><label for="color-transparent">Прозорий</label></li>
+                            <li><input type="checkbox" id="color-multi" value="multi"><label for="color-multi">Різнокольоровий</label></li>
+                        </ul>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Матеріал</h4>
+                        <ul class="material-filter-list">
+                            <li><input type="checkbox" id="material-glass" value="glass"><label for="material-glass">Скло</label></li>
+                            <li><input type="checkbox" id="material-cotton" value="cotton"><label for="material-cotton">Бавовна</label></li>
+                            <li><input type="checkbox" id="material-acrylic" value="acrylic"><label for="material-acrylic">Акрил</label></li>
+                            <li><input type="checkbox" id="material-wool" value="wool"><label for="material-wool">Вовна</label></li>
+                            <li><input type="checkbox" id="material-polyester" value="polyester"><label for="material-polyester">Поліестер</label></li>
+                            <li><input type="checkbox" id="material-felt" value="felt"><label for="material-felt">Фетр</label></li>
+                            <li><input type="checkbox" id="material-nylon" value="nylon"><label for="material-nylon">Нейлон</label></li>
+                            <li><input type="checkbox" id="material-wood" value="wood"><label for="material-wood">Дерево</label></li>
+                            <li><input type="checkbox" id="material-plastic" value="plastic"><label for="material-plastic">Пластик</label></li>
+                            <li><input type="checkbox" id="material-satin" value="satin"><label for="material-satin">Атлас</label></li>
+                            <li><input type="checkbox" id="material-fabric" value="fabric"><label for="material-fabric">Тканина</label></li>
+                            <li><input type="checkbox" id="material-mixed" value="mixed"><label for="material-mixed">Змішаний</label></li>
+                            <li><input type="checkbox" id="material-metal" value="metal"><label for="material-metal">Метал</label></li>
+                            <li><input type="checkbox" id="material-yarn" value="yarn"><label for="material-yarn">Пряжа</label></li>
+                        </ul>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Виробник</h4>
+                        <select name="manufacturer" id="manufacturer-filter">
+                            <option value="">Всі виробники</option>
+                            <option value="preciosa">Preciosa</option>
+                            <option value="gamma">Gamma</option>
+                            <option value="pony">Pony</option>
+                            <option value="artcraft">Artcraft</option>
+                            <option value="dmc">DMC</option>
+                            <option value="alize">Alize</option>
+                            <option value="lana-gatto">Lana Gatto</option>
+                            <option value="textile-pro">Textile Pro</option>
+                            <option value="iskys">Iskys</option>
+                            <option value="zweigart">Zweigart</option>
+                            <option value="rainproof-textiles">Rainproof Textiles</option>
+                            <option value="ykk">YKK</option>
+                            <option value="natural-crafts">Natural Crafts</option>
+                            <option value="button-co">Button Co</option>
+                            <option value="ribbon-art">Ribbon Art</option>
+                            <option value="diy-patches">DIY Patches</option>
+                            <option value="glam-decor">Glam Decor</option>
+                            <option value="abris-art">Abris Art</option>
+                            <option value="zolote-runo">Золоте Руно</option>
+                            <option value="amigurumi-kits">Amigurumi Kits</option>
+                            <option value="jewelry-crafts">Jewelry Crafts</option>
+                            <option value="ribbon-dreams">Ribbon Dreams</option>
+                            <option value="schmetz">Schmetz</option>
+                            <option value="fiskars">Fiskars</option>
+                            <option value="hoop-art">Hoop Art</option>
+                            <option value="box-it">Box It</option>
+                            <option value="fabric-marker-pro">Fabric Marker Pro</option>
+                            <option value="unknown">Інші</option>
+                        </select>
+                    </div>
+
+                    <button class="button primary-button reset-filters">Скинути фільтри</button>
+                </aside>
+
+                <div class="products-display">
+                    <div class="sort-options">
+                        <label for="sort-by">Сортувати за:</label>
+                        <select id="sort-by">
+                            <option value="popular">Популярністю</option>
+                            <option value="price-asc">Ціною: від низької до високої</option>
+                            <option value="price-desc">Ціною: від високої до низької</option>
+                            <option value="newest">Новизною</option>
+                        </select>
+                    </div>
+
+                    <div class="product-grid" id="category-product-grid">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 HandyCraft Shop. Усі права захищені.</p>
+        </div>
+    </footer>
+    <script src="products-data.js"></script>
+    <script src="header.js"></script>
+    <script src="category-page.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

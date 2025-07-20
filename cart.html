@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кошик | Craftoria</title>
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="logo.png" alt="Лого HandyCraft Shop" class="logo-icon">
+                Craftoria
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Головна</a></li>
+                    <li><a href="category-page.html">Каталог</a></li>
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Контакти</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="action-icon active" id="cart-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Кошик">
+                    <span class="item-count" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="cart-page-main">
+        <div class="container">
+            <h1>Ваш кошик</h1>
+
+            <div id="cart-items-container" class="cart-items-container">
+                <!-- Товари кошика будуть завантажені тут JS -->
+            </div>
+
+            <div id="empty-cart-message" class="empty-cart-message" style="display: none;">
+                <p>Ваш кошик порожній<a href="category-page.html" class="button primary-button">Перейти до каталогу</a></p>
+            </div>
+
+            <div class="cart-summary" id="cart-summary">
+                <p>Загальна сума: <span id="cart-total-price">0.00 ₴</span></p>
+                <a href="checkout.html" class="button primary-button">Оформити замовлення</a>
+                <button class="button secondary-button" id="clear-cart-btn">Очистити кошик</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 HandyCraft Shop. Усі права захищені.</p>
+        </div>
+    </footer>
+
+    <script src="products-data.js"></script>
+    <script src="header.js"></script>
+    <script src="cart.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

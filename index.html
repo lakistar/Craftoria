@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Craftoria - Все для рукоділля</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="main.css" />
+    <!-- AOS animation styles -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="header" data-aos="fade-down">
+        <div class="container">
+            <div class="logo">
+                <img src="logo.png" alt="Лого Craftoria" class="logo-icon">
+                Craftoria
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">Головна</a></li>
+                    <li><a href="category-page.html">Каталог</a></li>
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Контакти</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="action-icon" id="cart-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Кошик">
+                    <span class="item-count" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="container">
+            <h1 data-aos="fade-up">Все для рукоділля — натхнення починається тут!</h1>
+            <p data-aos="fade-up" data-aos-delay="100">Цей сайт є демонстраційним проектом для мого професійного портфоліо. Він розроблений, щоб продемонструвати мої навички у створенні адаптивних, зручних та візуально привабливих веб-інтерфейсів. Будь ласка, зверніть увагу, що деякі функції, можуть бути не повністю активними, оскільки метою є візуальна та структурна презентація коду. Дякую за розуміння!
+</p>
+            <a href="category-page.html" class="button primary-button" data-aos="zoom-in" data-aos-delay="200">До каталогу</a>
+        </div>
+    </section>
+
+    <section class="categories-section">
+        <div class="container">
+            <h2 data-aos="fade-up">Категорії</h2>
+            <div class="category-grid">
+                <a href="category-page.html?category=beads" class="category-card" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1633459653250-1883991e68c1?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0" alt="Бісер та Бісероплетіння">
+                    <span class="category-name">Бісер та Бісероплетіння</span>
+                </a>
+                <a href="category-page.html?category=threads" class="category-card" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1518732836484-bd257665c9d1?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0" alt="Нитки та Пряжа">
+                    <span class="category-name">Нитки та Пряжа</span>
+                </a>
+                <a href="category-page.html?category=fabrics" class="category-card" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://технические-ткани.укр/%D0%BA%D1%83%D0%BF%D0%B8%D1%82%D1%8C/wp-content/uploads/2019/02/discovery-2.jpg" alt="Тканини та Основи">
+                    <span class="category-name">Тканини та Основи</span>
+                </a>
+                <a href="category-page.html?category=decor" class="category-card" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://images.prom.ua/2378341596_w600_h600_2378341596.jpg" alt="Фурнітура та Декор">
+                    <span class="category-name">Фурнітура та Декор</span>
+                </a>
+                <a href="category-page.html?category=kits" class="category-card" data-aos="fade-up" data-aos-delay="500">
+                    <img src="https://static.rukodelki.com.ua/161004-thickbox_default/morkov-besplatno-nabor-dlya-vyshivki-krestom-abris-art-ah-288.jpg" alt="Набори для Рукоділля">
+                    <span class="category-name">Набори для Рукоділля</span>
+                </a>
+                <a href="category-page.html?category=tools" class="category-card" data-aos="fade-up" data-aos-delay="600">
+                    <img src="https://st4.depositphotos.com/3927083/27286/i/450/depositphotos_272868088-stock-photo-circular-knitting-needles-gray-background.jpg" alt="Інструменти та Допоміжні Матеріали">
+                    <span class="category-name">Інструменти та Допоміжні Матеріали</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="popular-products-section">
+        <div class="container">
+            <h2 data-aos="fade-up">Популярні товари</h2>
+            <div class="product-grid">
+                <a href="product.html?id=1" class="product-card" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="https://vechornytsi.com/files/products/38394.420x420.jpg" alt="Бісер рожевий 10г" class="product-image">
+                    <h3>Бісер рожевий 10г</h3>
+                    <p class="product-price">25 ₴</p>
+                    <button class="button add-to-cart">Детальніше</button>
+                </a>
+                <a href="product.html?id=2" class="product-card" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="https://5.imimg.com/data5/ECOM/Default/2023/11/359185851/UY/KR/CM/123335792/twine-thread-500x500.jpg" alt="Нитки бавовняні" class="product-image">
+                    <h3>Нитки бавовняні</h3>
+                    <p class="product-price">35 ₴</p>
+                    <button class="button add-to-cart">Детальніше</button>
+                </a>
+                <a href="product.html?id=3" class="product-card" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="https://images.prom.ua/4130830364_w640_h640_4130830364.jpg" alt="Набір для вишивки" class="product-image">
+                    <h3>Набір для вишивки</h3>
+                    <p class="product-price">150 ₴</p>
+                    <button class="button add-to-cart">Детальніше</button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" data-aos="fade-up">
+        <div class="container">
+            <p>&copy; 2025 HandyCraft Shop. Усі права захищені.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="products-data.js"></script>
+    <script src="header.js"></script>
+    <script src="main.js"></script>
+
+    <!-- AOS animation scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 300,
+        once: true
+      });
+    </script>
+</body>
+</html>
