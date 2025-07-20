@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const productImageDiv = document.getElementById('product-image');
     const productPriceElement = document.getElementById('product-price');
     const productDescriptionElement = document.getElementById('product-description');
-    const quantityInput = document.getElementById('quantity-input');
-    const addToCartBtn = document.getElementById('add-to-cart-btn');
+    const quantityInput = document.getElementById('quantity-input'); // Потрібен для main.js
+    const addToCartBtn = document.getElementById('add-to-cart-btn'); // Потрібен для main.js
     const colorSwatchesContainer = document.getElementById('color-swatches-container');
     const currentColorNameSpan = document.getElementById('current-color-name');
 
@@ -42,9 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
         productPriceElement.textContent = `${product.price.toFixed(2)} ₴`;
         productDescriptionElement.textContent = product.description || 'Детальний опис товару відсутній.';
 
-        // Оновлюємо data-product-id для кнопки кошика
+        // Оновлюємо data-product-id для кнопки кошика (main.js буде його використовувати)
         if (addToCartBtn) {
-            addToCartBtn.dataset.productId = product.id; // Це важливо для addToCart у main.js
+            addToCartBtn.dataset.productId = product.id;
         }
 
         // Оновлюємо назву поточного кольору
@@ -55,14 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderColorSwatches(baseProductName, currentProductId) {
         colorSwatchesContainer.innerHTML = ''; // Очищаємо попередні свотчі
 
-        // Видаляємо частину "(колір)" з назви, щоб отримати базову назву
         const cleanBaseName = baseProductName.replace(/\s\(.+\)/, '');
-
-        // Знаходимо всі варіанти цього товару
         const variants = allProducts.filter(p => p.name.includes(cleanBaseName));
 
-        if (variants.length > 1) { // Показуємо селектор кольору, тільки якщо є більше одного варіанту
-            // Переконайтесь, що .product-color-selector відображається
+        if (variants.length > 1) {
             const colorSelector = document.querySelector('.product-color-selector');
             if (colorSelector) {
                 colorSelector.style.display = 'block';
@@ -71,31 +67,27 @@ document.addEventListener('DOMContentLoaded', () => {
             variants.forEach(variant => {
                 const swatch = document.createElement('div');
                 swatch.classList.add('color-swatch');
-                swatch.style.backgroundColor = getCssColor(variant.color); // Отримуємо CSS-колір
+                swatch.style.backgroundColor = getCssColor(variant.color);
                 swatch.dataset.productId = variant.id;
-                swatch.title = variant.color.charAt(0).toUpperCase() + variant.color.slice(1); // Підказка з назвою кольору
+                swatch.title = variant.color.charAt(0).toUpperCase() + variant.color.slice(1);
 
                 if (variant.id === currentProductId) {
                     swatch.classList.add('active');
                 }
 
                 swatch.addEventListener('click', () => {
-                    // Видаляємо клас 'active' з усіх свотчів
                     document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-                    // Додаємо 'active' до вибраного свотча
                     swatch.classList.add('active');
 
                     const selectedProduct = allProducts.find(p => p.id === parseInt(swatch.dataset.productId));
                     if (selectedProduct) {
                         updateProductDisplay(selectedProduct);
-                        // Оновлюємо URL без перезавантаження сторінки
                         history.pushState(null, '', `product.html?id=${selectedProduct.id}`);
                     }
                 });
                 colorSwatchesContainer.appendChild(swatch);
             });
         } else {
-            // Якщо варіантів немає або лише один, приховуємо селектор
             const colorSelector = document.querySelector('.product-color-selector');
             if (colorSelector) {
                 colorSelector.style.display = 'none';
@@ -117,9 +109,9 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'brown': return '#a0522d';
             case 'pink': return '#ffc0cb';
             case 'cream': return '#fffdd0';
-            case 'transparent': return 'repeating-conic-gradient(#ccc 0% 25%, #eee 0% 50%) 0 / 10px 10px'; // Шахматка
-            case 'multi': return 'linear-gradient(45deg, #e74c3c, #3498db, #2ecc71, #f1c40f)'; // Градієнт
-            default: return '#cccccc'; // Дефолтний сірий
+            case 'transparent': return 'repeating-conic-gradient(#ccc 0% 25%, #eee 0% 50%) 0 / 10px 10px';
+            case 'multi': return 'linear-gradient(45deg, #e74c3c, #3498db, #2ecc71, #f1c40f)';
+            default: return '#cccccc';
         }
     }
 
@@ -129,20 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderColorSwatches(currentProduct.name, currentProduct.id);
     }
 
-    // *** ЗМІНЕНО ***: Використання глобальної функції addToCart з main.js
-    if (addToCartBtn) {
-        addToCartBtn.addEventListener('click', () => {
-            const quantity = parseInt(quantityInput.value) || 1;
-            if (isNaN(quantity) || quantity <= 0) {
-                quantityInput.value = 1; // Забезпечуємо мінімум 1
-            }
-            // Викликаємо addToCart з main.js
-            if (typeof addToCart === 'function') { // Перевірка, чи функція доступна
-                addToCart(currentProduct.id, quantity);
-                alert(`${currentProduct.name} (${quantity} шт.) додано до кошика!`);
-            } else {
-                console.error("Функція addToCart не визначена. Перевірте порядок підключення скриптів або наявність її в main.js.");
-            }
-        });
-    }
+    // *** ВИДАЛЕНО: обробник кнопки "Додати до кошика" ПОВНІСТЮ перенесений у main.js ***
+    // Цей файл product.js тепер лише відображає дані товару та його варіанти.
 });
