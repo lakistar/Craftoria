@@ -59,10 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (targetButton) {
             event.preventDefault(); // Запобігаємо стандартній поведінці кнопки (наприклад, якщо вона в <a>)
             const productId = parseInt(targetButton.dataset.productId);
-
-            // Використовуємо глобальну функцію addToCart з j/main.js
-            // Ця функція оновлює localStorage та викликає updateHeaderCounts()
-            addToCart(productId);
+            addToCart(productId); // Правильна назва функції
 
             // Оновлюємо текст кнопки на "В кошику"
             targetButton.textContent = 'В кошику';
